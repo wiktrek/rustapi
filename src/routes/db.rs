@@ -1,21 +1,22 @@
 use rocket::*;
-#[path = "./connect.rs"] mod connect;
-use connect::mongo;
-#[get("/db/<option>")]
-pub fn db(option: &str) -> &str {
-    mongo();
-    match option {
-        "save"=> return save(),
-        "delete"=> return delete(),
-    _ => return "option not found" 
-    }
+#[get("/db/<option>/<data>")]
+pub fn db<'a>(option: &str, data: &str) -> &'a str {
+match option {
+    "save"=> {
+        save();
+        return "save"
+    },
+    "delete"=> {
+        delete();
+   return "delete"
+    },
+_ => return "choose one option save or write"
 }
-fn save() -> &str {
-    println!("save");
-    return "save"
+return "db"
 }
+fn save() -> String {
+return "Hello from save".to_string();
+}
+fn delete() {
 
-fn delete() -> &str {
-println!("delete");
-return "save"
 }
