@@ -5,7 +5,9 @@ use mongodb::{Client, options::ClientOptions};
 pub fn db<'a>(option: &str, data: &str) -> &'a str {
 match option {
     "save"=> {
-        save(data);
+    let rt = tokio::runtime::Runtime::new().unwrap();
+    let future = save(data);
+    rt.block_on(future);
         return "save"
     },
     "delete"=> {
@@ -15,10 +17,10 @@ match option {
 _ => return "choose one option save or delete"
 }
 }
-fn save(data: &str) {
-// let mut client_options = ClientOptions::parse().await?;
+async fn save(data: &str) {
+let mut client_options = ClientOptions::parse(dotenv::var("DB").unwrap()).await?;
 println!("save");
-println!("{}",  dotenv::var("DB").unwrap());
+println!("{}", dotenv::var("DB").unwrap());
 
 
 }
