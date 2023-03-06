@@ -2,7 +2,7 @@
 use rocket::*;
 use dotenv;
 use ::serde::{Deserialize, Serialize};
-use mongodb::{Client, options::ClientOptions};
+use mongodb::{ Client,bson::doc,options::ClientOptions};
 use exitfailure::ExitFailure;
 #[derive(Debug, Serialize, Deserialize)]
 struct File {
@@ -11,6 +11,7 @@ struct File {
 }
 #[get("/db/<option>/<title>/<data>")]
 pub fn db<'a>(option: &str, title: &str, data: &str) -> &'a str {
+    println!("{}, {}, {}", option, title, data);
 match option {
     "save"=> {
     let rt = tokio::runtime::Runtime::new().unwrap();
@@ -26,11 +27,20 @@ _ => return "choose one option save or delete"
 }
 }
 async fn save(data: &str, title: &str) -> Result<(),  ExitFailure> {
-let mut client_options = ClientOptions::parse(dotenv::var("DB").unwrap()).await?;
-let client = Client::with_options(client_options)?;
+let client = Client::with_uri_str(dotenv::var("DB").unwrap()).await?;
 let database = client.database("rust");
-
-
+let collection = database.collection::<File>("files");
+let docs = vec![
+    File{
+        title: title.to_string(),
+        data: data.to_string(),
+    }
+];
+collection.insert_many(docs, None).await?;
+// let cursor = collection.find(doc! { "title": title.to_string()}, None).await?;
+// for result in cursor {
+//     println!("title: {}", result?.title);
+// }
 println!("save");
 println!("{}", dotenv::var("DB").unwrap());
 
