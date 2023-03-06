@@ -11,5 +11,6 @@ dotenv = "0.15.0"
 tokio = { version = "1", features = ["full"] }
 mongodb = "2.3.0"
 bson = { version = "2", features = ["chrono-0_4"] }
+exitfailure = "0.5.1"
 chrono = "0.4"
 serde = "1"
