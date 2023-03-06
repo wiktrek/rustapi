@@ -1,22 +1,27 @@
 use rocket::*;
+use dotenv;
+use mongodb::{Client, options::ClientOptions};
 #[get("/db/<option>/<data>")]
 pub fn db<'a>(option: &str, data: &str) -> &'a str {
 match option {
     "save"=> {
-        save();
+        save(data);
         return "save"
     },
     "delete"=> {
-        delete();
+        delete(data);
    return "delete"
     },
-_ => return "choose one option save or write"
+_ => return "choose one option save or delete"
 }
-return "db"
 }
-fn save() -> String {
-return "Hello from save".to_string();
+fn save(data: &str) {
+// let mut client_options = ClientOptions::parse().await?;
+println!("save");
+println!("{}",  dotenv::var("DB").unwrap());
+
+
 }
-fn delete() {
+fn delete(data: &str) {
 
 }
