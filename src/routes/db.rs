@@ -1,4 +1,3 @@
-
 use rocket::*;
 use dotenv;
 use ::serde::{Deserialize, Serialize};
@@ -16,7 +15,7 @@ match option {
     "save"=> {
     let rt = tokio::runtime::Runtime::new().unwrap();
     let future = save(data, title);
-    rt.block_on(future);
+    rt.spawn(future);
         return "save"
     },
     "delete"=> {
@@ -26,7 +25,7 @@ match option {
 _ => return "choose one option save or delete"
 }
 }
-async fn save(data: &str, title: &str) -> Result<(),  ExitFailure> {
+async fn save(data: &str, title: & str) -> Result<(),  ExitFailure> {
 let client = Client::with_uri_str(dotenv::var("DB").unwrap()).await?;
 let database = client.database("rust");
 let collection = database.collection::<File>("files");
