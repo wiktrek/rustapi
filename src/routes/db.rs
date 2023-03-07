@@ -1,7 +1,7 @@
 use rocket::*;
 use dotenv;
 use ::serde::{Deserialize, Serialize};
-use mongodb::{ Client,bson::doc,options::ClientOptions};
+use mongodb::{ Client,bson::doc};
 use exitfailure::ExitFailure;
 #[derive(Debug, Serialize, Deserialize)]
 struct File {
@@ -14,8 +14,7 @@ pub fn db<'a>(option: &str, title: &str, data: &str) -> &'a str {
 match option {
     "save"=> {
     let rt = tokio::runtime::Runtime::new().unwrap();
-    let future = save(data.to_string(), title.to_string());
-    rt.spawn(future);
+    rt.spawn(save(data.to_string(), title.to_string()));
         return "save"
     },
     "delete"=> {
@@ -46,5 +45,5 @@ println!("{}", dotenv::var("DB").unwrap());
 Ok(())
 }
 fn delete(data: &str) {
-
+println!("{}",data)
 }
