@@ -58,7 +58,7 @@ let docs = vec![
         data: data.to_string(),
     }
 ];
-collection.insert_many(docs, None).await?;
+collection.delete_many(docs, ).await?;
 // let cursor = collection.find(doc! { "title": title.to_string()}, None).await?;
 // for result in cursor {
 //     println!("title: {}", result?.title);
