@@ -14,7 +14,7 @@ pub fn db<'a>(option: &str, title: &str, data: &str) -> &'a str {
 match option {
     "save"=> {
     let rt = tokio::runtime::Runtime::new().unwrap();
-    let future = save(data, title);
+    let future = save(data.to_string(), title.to_string());
     rt.spawn(future);
         return "save"
     },
@@ -25,7 +25,7 @@ match option {
 _ => return "choose one option save or delete"
 }
 }
-async fn save(data: &str, title: & str) -> Result<(),  ExitFailure> {
+async fn save(data: String, title: String) -> Result<(),  ExitFailure> {
 let client = Client::with_uri_str(dotenv::var("DB").unwrap()).await?;
 let database = client.database("rust");
 let collection = database.collection::<File>("files");
