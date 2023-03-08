@@ -5,17 +5,10 @@ use mongodb::{ Client,bson::doc};
 use exitfailure::ExitFailure;
 #[derive(Debug, Serialize, Deserialize)]
 struct Files {
+    owner: String,
     title: String,
     data: String,
     id: String,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct User {
-    name: String,
-    password: String,
-    id: String,
-    files: Vec<Files>
 }
 
 // pub fn db<'a>(option: &str, title: &str, data: &str) -> &'a str {
@@ -34,24 +27,19 @@ struct User {
 // _ => return "choose one option save or delete"
 // }
 // }
-#[get("/db/save/<username>/<password>/<id>/<title>/<data>")]
-pub async fn save<'r,'a>(username: &str, password: &str, id: &str, title: &str, data: &str) -> Result<(),  ExitFailure> {
+#[get("/db/save/<username>/<id>/<title>/<data>")]
+pub async fn save<'r,'a>(username: &str, id: &str, title: &str, data: &str) -> Result<(),  ExitFailure> {
 let client = Client::with_uri_str(dotenv::var("DB").unwrap()).await?;
 let database = client.database("rust");
-let collection = database.collection::<User>("files");
+let collection = database.collection::<Files>("files");
 println!("{:?}", collection);
-let user = User {
-    name: username.to_string(),
-    password: password.to_string(),
-    id: id.to_string(),
-    files: vec![Files {
+let file = Files {
+    owner: username.to_string(),
     title: title.to_string(),
     data: data.to_string(),
-    id: id.to_string()
-
-    }]
+    id: id.to_string(),
 };
-collection.insert_one(user, None);
+collection.insert_one(file, None);
 // let cursor = collection.find(doc! { "title": title.to_string()}, None).await?;
 // for result in cursor {
 //     println!("title: {}", result?.title);
@@ -61,12 +49,18 @@ println!("{}", dotenv::var("DB").unwrap());
 
 Ok(())
 }
-#[get("/db/delete/<id>/<fileid>")]
-pub async fn delete(id: &str, fileid: &str) -> Result<(),  ExitFailure>{
+#[get("/db/delete/<username>/<id>/<title>/<data>")]
+pub async fn deleteo<'r,'a>(username: &str, id: &str, title: &str, data: &str) -> Result<(),  ExitFailure>{
 let client = Client::with_uri_str(dotenv::var("DB").unwrap()).await?;
 let database = client.database("rust");
-let collection = database.collection::<User>("files");
-collection.delete_one().await?;
+let collection = database.collection::<Files>("files");
+let file = doc! {
+    "owner": username.to_string(),
+    "title": title.to_string(),
+    "data": data.to_string(),
+    "id": id.to_string(),
+};
+collection.delete_one(file, None).await?;
 // let cursor = collection.find(doc! { "title": title.to_string()}, None).await?;
 // for result in cursor {
 //     println!("title: {}", result?.title);
