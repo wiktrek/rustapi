@@ -50,7 +50,7 @@ println!("{}", dotenv::var("DB").unwrap());
 Ok(())
 }
 #[get("/db/delete/<username>/<id>/<title>/<data>")]
-pub async fn deleteo<'r,'a>(username: &str, id: &str, title: &str, data: &str) -> Result<(),  ExitFailure>{
+pub async fn delete(username: &str, id: &str, title: &str, data: &str) -> Result<(), ExitFailure>{
 let client = Client::with_uri_str(dotenv::var("DB").unwrap()).await?;
 let database = client.database("rust");
 let collection = database.collection::<Files>("files");
@@ -58,6 +58,7 @@ let file = doc! {
     "owner": username.to_string(),
     "title": title.to_string(),
     "data": data.to_string(),
+    "id": id.to_string(),
     "id": id.to_string(),
 };
 collection.delete_one(file, None).await?;
