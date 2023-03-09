@@ -1549,6 +1549,7 @@ dependencies = [
  "rocket_codegen",
  "rocket_http",
  "serde",
+ "serde_json",
  "state",
  "tempfile",
  "time 0.3.20",
@@ -1614,6 +1615,7 @@ dependencies = [
  "mongodb",
  "rocket",
  "serde",
+ "serde_json",
  "tokio",
 ]
 
