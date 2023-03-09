@@ -1,8 +1,17 @@
 use rocket::*;
 use rocket::serde::{json::Json, Deserialize, Serialize};
+#[derive(Deserialize, Serialize)]
+pub struct Ping {
+    response: String,
+    status: String,
+}
 #[get("/ping")]
-pub fn ping() -> Json<String>{
-Json("pong".to_string())
+pub fn ping() -> Json<Ping>{
+    let response = Ping {
+    response: "pong".to_string(),
+    status: "200".to_string(),
+};
+Json(response)
 }
 #[derive(Deserialize, Serialize)]
 pub struct Test {
@@ -15,8 +24,6 @@ let response = Test {
     id: "test".to_string(),
     status: "200".to_string(),
 };
-
-
 Json(response)
 }
 
