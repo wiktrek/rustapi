@@ -13,8 +13,7 @@ pub struct RedirectData {
 #[get("/redirect/<link>")]
 pub async fn redirect(link: String) -> Result<(), Box<dyn std::error::Error>>{
     let body = reqwest::get(format!("http://127.0.0.1:8000/data/redirect/{}", link)).await?.text().await?;
-println!("{:?}", body);
-
+    println!("{:?}", body);
 Ok(())
 }
 #[get("/data/redirect/<link>")]
