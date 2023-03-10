@@ -5,6 +5,5 @@ mod routes;
 use routes::*;
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![index_rs, ping, test, redirect_rs, redirect_data])
-
+    rocket::build().mount("/", routes![index_rs, ping, test, redirect_rs, redirect_data, wiktrek])
 }

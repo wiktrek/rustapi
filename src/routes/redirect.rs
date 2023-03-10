@@ -15,16 +15,17 @@ pub struct RedirectData {
 pub async fn redirect(link: String) -> Redirect{
     let redirect_uri= uri!("https://wiktrek.xyz");
 let handle = tokio::runtime::Handle::try_current().unwrap();
-handle.spawn(get_url(link));
+let result = handle.block_on(get_url(link));
+println!("{:?}", result);
 Redirect::to(redirect_uri)
 }
 
 
-async fn get_url(link: String) -> Result<(), Box<dyn std::error::Error>>{
+async fn get_url(link: String) -> Result<String, Box<dyn std::error::Error>>{
 
 let body = reqwest::get(format!("http://127.0.0.1:8000/data/redirect/{}", link)).await?.text().await?;
 println!("{:?}", body);
-Ok(())
+Ok("eee".to_string())
 }
 
 #[get("/data/redirect/<link>")]
