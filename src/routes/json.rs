@@ -26,4 +26,16 @@ let response = Test {
 };
 Json(response)
 }
-
+#[derive(Deserialize, Serialize)]
+pub struct Wiktrek {
+ response: String,
+ status: String,
+}
+#[get("/wiktrek")]
+pub fn wiktrek() -> Json<Wiktrek>{
+let response = Wiktrek {
+    response: "wiktrek".to_string(),
+    status: "200".to_string(),
+};
+Json(response)
+}
