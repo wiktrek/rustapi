@@ -10,10 +10,10 @@ struct Links {
     redirects: String,
 }
 #[get("/redirect/<link>")]
-pub async fn redirect(link: String) -> String{
+pub async fn redirect(link: String) -> Result<String, std::io::Error> {
     let redirect_uri= uri!("https://wiktrek.xyz");
-    let result = fs::read_to_string("src/data/redirect.json").unwrap();
+    let result = fs::read_to_string("src/data/redirect.json")?;
 println!("{:?}", result);
 // Redirect::to(redirect_uri)
-format!("{:?}", serde_json::from_str::<Links>(result.as_str()).unwrap())
+Ok(format!("{:?}", serde_json::from_str::<Links>(result.as_str()).unwrap()))
 }
