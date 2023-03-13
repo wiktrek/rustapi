@@ -12,31 +12,10 @@ pub struct RedirectData {
 }
 
 #[get("/redirect/<link>")]
-pub async fn redirect(link: String) -> Redirect{
+pub async fn redirect(link: String) -> String{
     let redirect_uri= uri!("https://wiktrek.xyz");
-let handle = tokio::runtime::Handle::try_current().unwrap();
-let result = handle.block_on(get_url(link));
+    let result = fs::read_to_string("src/data/redirect.json").unwrap();
 println!("{:?}", result);
-Redirect::to(redirect_uri)
+// Redirect::to(redirect_uri)
+format!("{:?}", serde_json::from_str(result.as_str()))
 }
-
-
-async fn get_url(link: String) -> Result<String, Box<dyn std::error::Error>>{
-
-let body = reqwest::get(format!("http://127.0.0.1:8000/data/redirect/{}", link)).await?.text().await?;
-println!("{:?}", body);
-Ok("eee".to_string())
-}
-
-#[get("/data/redirect/<link>")]
-pub fn redirect_data(link: String) -> Json<RedirectData>{
-
-let response = RedirectData {
-    name: "".to_string(),
-    redirect_url: "https://example.com".to_string(),
-    status: "200".to_string(),
-};
-Json(response)
-}
-
-

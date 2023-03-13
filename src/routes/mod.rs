@@ -8,6 +8,5 @@ pub use json::test;
 pub use json::wiktrek;
 
 pub use redirect::redirect as redirect_rs;
-pub use redirect::redirect_data;
 // pub use db::save;
 // pub use db::delete;
