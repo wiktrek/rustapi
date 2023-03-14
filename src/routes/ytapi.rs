@@ -8,8 +8,8 @@ struct Links {
     name: String,
     redirect: String,
 }
-#[get("/redirect/<link>")]
-pub async fn redirect(link: String) -> Result<Redirect, std::io::Error> {
+#[get("/yt/<token>")]
+pub async fn youtube(link: String) -> Result<Redirect, std::io::Error> {
     let redirect_uri= uri!("https://wiktrek.xyz");
     let path = Path::new("src/data/redirect.json");
     let file = fs::File::open(path).expect("failed to open");
