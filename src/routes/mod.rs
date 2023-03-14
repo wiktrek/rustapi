@@ -2,12 +2,13 @@ mod index;
 pub mod db;
 pub mod json;
 pub mod redirect;
+mod duckduckgo;
 pub use index::index as index_rs;
 pub use json::ping;
 pub use json::test;
 pub use json::wiktrek;
 pub use json::example as json_example;
-
+pub use duckduckgo::duckduckgo as duck;
 pub use redirect::redirect as redirect_rs;
 // pub use db::save;
 // pub use db::delete;
