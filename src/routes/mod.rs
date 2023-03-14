@@ -2,7 +2,6 @@ mod index;
 pub mod db;
 pub mod json;
 pub mod redirect;
-mod duckduckgo;
 pub use index::index as index_rs;
 pub use json::ping;
 pub use json::test;
