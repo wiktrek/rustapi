@@ -7,7 +7,6 @@ pub use json::ping;
 pub use json::test;
 pub use json::wiktrek;
 pub use json::example as json_example;
-pub use redirect::duckduckgo as duck;
 pub use redirect::redirect as redirect_rs;
 // pub use db::save;
 // pub use db::delete;
