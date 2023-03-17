@@ -1,4 +1,5 @@
 mod index;
+mod err;
 pub mod db;
 pub mod json;
 pub mod redirect;
@@ -8,5 +9,7 @@ pub use json::test;
 pub use json::wiktrek;
 pub use json::example as json_example;
 pub use redirect::redirect as redirect_rs;
+pub use err::not_found;
+pub use err::internal_error;
 // pub use db::save;
 // pub use db::delete;
