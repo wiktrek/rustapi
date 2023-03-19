@@ -7,12 +7,16 @@
         results::{ InsertOneResult},
         sync::{Client, Collection},
     };
-    use crate::models::user_model::User;
 
     pub struct MongoRepo {
         col: Collection<User>,
     }
+pub struct User {
+    id: String,
+    username: String,
+    password: String,
 
+}
     impl MongoRepo {
         pub fn init() -> Self {
             dotenv().ok();
@@ -28,10 +32,9 @@
 
         pub fn create_user(&self, new_user: User) -> Result<InsertOneResult, Error> {
             let new_doc = User {
-                id: None,
-                name: new_user.name,
-                location: new_user.location,
-                title: new_user.title,
+                id: new_user.id,
+                username: new_user.username,
+                password: new_user.password,
             };
             let user = self
                 .col
@@ -40,4 +43,30 @@
                 .expect("Error creating user");
             Ok(user)
         }
+    fn get_collection(&self) -> Collection {
+    
+        self.col
+    }
+        pub async fn get_users(&self) -> Result<Vec<User>> {
+        let mut cursor = self
+            .get_collection()
+            .find(None, None)
+            .await
+            .map_err(MongoQueryError)?;
+
+        let mut result: Vec<User> = Vec::new();
+        while let Some(doc) = cursor.next().await {
+            result.push(self.doc_to_users(&doc?)?);
+        }
+        Ok(result)
+    }
+    pub fn doc_to_users(&self, doc: &Document) -> Result<User>{
+let user = User {
+    id: doc.get_str(ID),
+    username: doc.get_str(USERNAME),
+    password: doc.get_str(PASSWORD)
+};
+Ok(user)
+    }
+
     }
