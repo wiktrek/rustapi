@@ -16,7 +16,7 @@
     impl MongoRepo {
         pub fn init() -> Self {
             dotenv().ok();
-            let uri = match env::var("MONGOURI") {
+            let uri = match env::var("DB") {
                 Ok(v) => v.to_string(),
                 Err(_) => format!("Error loading env variable"),
             };
