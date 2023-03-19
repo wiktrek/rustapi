@@ -1,8 +1,6 @@
 mod index;
 mod err;
 pub mod json;
-pub mod db;
-pub mod mongo;
 pub mod redirect;
 pub use index::index as index_rs;
 pub use json::ping;
@@ -12,6 +10,5 @@ pub use json::example as json_example;
 pub use redirect::redirect as redirect_rs;
 pub use err::not_found;
 pub use err::internal_error;
-pub use db::get_users;
 // pub use db::save;
 // pub use db::delete;
