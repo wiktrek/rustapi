@@ -2,11 +2,11 @@
 use std::env;
 use bson::doc;
 use dotenv::dotenv;
-use mongodb::options::ClientOptions;
-use mongodb::results::InsertOneResult;
+use mongodb::{results::InsertOneResult,Client,options::ClientOptions};
 use rocket::*;
 use rocket::http::Status;
 use rocket::serde::{json::Json, Deserialize, Serialize};
+
 #[derive(Deserialize, Serialize)]
 pub struct User{
     username: String,
@@ -18,15 +18,22 @@ pub struct Response{
     response: String,
     status: String,
 }
+struct Err {}
+impl From<mongodb::error::Error> for Err {
+    fn from(_error: mongodb::error::Error) -> Self {
+        Err {}
+    }
+}
+
 #[get("/user/create/<username>/<password>")]
-pub async fn user_create(username: String, password: String) -> Result<Json<InsertOneResult>, Status> {
+pub async fn user_create(username: String, password: String) -> Result<Json<InsertOneResult>, mongodb::error::Error> {
      dotenv().ok();
                  let uri = match env::var("DB") {
                 Ok(v) => v.to_string(),
                 Err(_) => format!("Error loading env variable"),
             };
                     let client_options = ClientOptions::parse(uri).await?;
-                let client = Client::with_options(client_options)?;
+                let client = Client::with_options(client_options).await;
             println!("client: {:?}", client);
             let database = client.database("rust");
             println!("----------------------------");
@@ -37,12 +44,12 @@ pub async fn user_create(username: String, password: String) -> Result<Json<Inse
         password,
         id: "wiktrek".to_string(),
 };
-    collection.insert_one(user, None).await.ok().expect("Error creating user");
+    let insert = collection.insert_one(user, None).await.ok().expect("Error creating user");
     let response = Response {
     response: "DATA WRITTEN to".to_string(),
     status: "200".to_string(),
 };
 
 
-Ok()
+Ok(Json(insert))
 }
