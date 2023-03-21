@@ -19,7 +19,7 @@ pub struct Response{
     status: String,
 }
 #[get("/user/create/<username>/<password>")]
-pub async fn user_create(username: String, password: String) -> Result<Json<Response>, Status>{
+pub async fn user_create(username: String, password: String) -> Result<InsertOneResult, Error>> {
      dotenv().ok();
                  let uri = match env::var("DB") {
                 Ok(v) => v.to_string(),
@@ -36,7 +36,7 @@ pub async fn user_create(username: String, password: String) -> Result<Json<Resp
         password,
         id: "wiktrek".to_string(),
 };
-    collection.insert_one(user, None);
+    collection.insert_one(user, None).ok().expect("Error creating user");
     let response = Response {
     response: "DATA WRITTEN to".to_string(),
     status: "200".to_string(),
