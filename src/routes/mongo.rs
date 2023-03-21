@@ -28,10 +28,12 @@ pub async fn user_create(username: String, password: String) -> Result<Json<Resp
             let client = Client::with_uri_str(uri).await.unwrap();
             println!("client: {:?}", client);
             let database = client.database("rust");
+            println!("----------------------------");
+            println!("database: {:?}", database);
             let collection = database.collection::<User>("users");
     let user = User {
-        username: username,
-        password: password,
+        username,
+        password,
         id: "wiktrek".to_string(),
 };
     collection.insert_one(user, None);
