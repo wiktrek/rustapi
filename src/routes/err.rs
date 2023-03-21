@@ -7,5 +7,5 @@ pub fn not_found(req: &Request) -> String {
 }
 #[catch(500)]
 pub fn internal_error() -> &'static str {
-    "Whoops! Looks like we messed up."
+    "There was an error.Try again later."
 }
