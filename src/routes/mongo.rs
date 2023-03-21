@@ -2,11 +2,11 @@
 use std::env;
 use bson::doc;
 use dotenv::dotenv;
+use mongodb::options::ClientOptions;
+use mongodb::results::InsertOneResult;
 use rocket::*;
+use rocket::http::Status;
 use rocket::serde::{json::Json, Deserialize, Serialize};
-use rocket::{ http::Status};
-use mongodb::{ Client};
-
 #[derive(Deserialize, Serialize)]
 pub struct User{
     username: String,
@@ -19,13 +19,14 @@ pub struct Response{
     status: String,
 }
 #[get("/user/create/<username>/<password>")]
-pub async fn user_create(username: String, password: String) -> Result<InsertOneResult, Error>> {
+pub async fn user_create(username: String, password: String) -> Result<Json<InsertOneResult>, Status> {
      dotenv().ok();
                  let uri = match env::var("DB") {
                 Ok(v) => v.to_string(),
                 Err(_) => format!("Error loading env variable"),
             };
-            let client = Client::with_uri_str(uri).await.unwrap();
+                    let client_options = ClientOptions::parse(uri).await?;
+                let client = Client::with_options(client_options)?;
             println!("client: {:?}", client);
             let database = client.database("rust");
             println!("----------------------------");
@@ -36,12 +37,12 @@ pub async fn user_create(username: String, password: String) -> Result<InsertOne
         password,
         id: "wiktrek".to_string(),
 };
-    collection.insert_one(user, None).ok().expect("Error creating user");
+    collection.insert_one(user, None).await.ok().expect("Error creating user");
     let response = Response {
     response: "DATA WRITTEN to".to_string(),
     status: "200".to_string(),
 };
 
 
-Ok(Json(response))
+Ok()
 }
