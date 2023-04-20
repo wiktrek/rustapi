@@ -19,6 +19,8 @@ match algstr {
   "simple" => simple_sort(vec_i32),
   "selection" => selection_sort(vec_i32),
   "bubble" => bubble_sort(vec_i32),
+  "insertion" => insertion_sort(vec_i32),
+  "merge" => merge_sort(vec_i32),
   _ => return Json(Ping { 
     response: format!("Error: couldn't find sorting algorithm {}", algstr),
     status: "400".to_string()})
