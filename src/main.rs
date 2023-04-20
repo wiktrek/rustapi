@@ -1,6 +1,5 @@
 #[macro_use]
 extern crate rocket;
-
 mod routes;
 use routes::*;
 #[launch]

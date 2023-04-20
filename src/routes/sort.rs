@@ -1,7 +1,5 @@
 use rocket::*;
 use rocket::serde::{json::Json, Deserialize, Serialize};
-mod sort_algs;
-use sort_algs::selection_sort;
 #[derive(Deserialize, Serialize)]
 pub struct Ping {
     response: String,
@@ -29,12 +27,3 @@ match algstr {
 }
 
 
-fn rust_sort(vec: Vec<i32>) -> Json<Ping>{
-  let mut sorted = vec;
-    sorted.sort();
-    let response = Ping {
-    response: format!("{:?}", sorted),
-    status: "200".to_string(),
-  };
-Json(response)
-}

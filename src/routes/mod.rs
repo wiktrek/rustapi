@@ -4,6 +4,7 @@ pub mod json;
 pub mod redirect;
 pub mod mongo;
 mod sort;
+mod sort_algs;
 pub use index::index as index_rs;
 pub use json::ping;
 pub use json::test;
