@@ -25,20 +25,23 @@ match algstr {
 }
 }
 fn simple_sort(vec: Vec<i32>) -> Json<Ping> {
-  let n: i32 = vec.len() as i32;
-let mut i: i32 = 0;
+  let mut sorted = vec;
+  let n = sorted.len();
+let mut i: usize = 0;
   while i < n {
   let mut j = i + 1;
-    while j <n {
-      j+= 1;
-      if vec[j as usize]<vec[i as usize] {
-        
+    while j <n {  
+      if sorted[j]<sorted[i] {
+        let temp = sorted[i];
+        sorted[i] = sorted[j];
+        sorted[j] = temp;
       }
+    j+= 1;
     }
   i += 1;
   }
   Json(Ping {
-    response: format!("response"),
+    response: format!("{:?}", sorted),
     status: "200".to_string()
   })
 }
