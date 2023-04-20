@@ -11,7 +11,7 @@ pub use json::wiktrek;
 pub use json::example as json_example;
 pub use redirect::redirect as redirect_rs;
 pub use err::not_found;
-pub use sort::sort_rs;
+pub use sort::sort as sort_rs;
 // pub use mongo::user_create;
 pub use err::internal_error;
 // pub use db::save;

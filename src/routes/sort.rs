@@ -1,6 +1,7 @@
 use rocket::*;
 use rocket::serde::{json::Json, Deserialize, Serialize};
-use simple::simple_sort;
+mod sort_algs;
+use sort_algs::selection_sort;
 #[derive(Deserialize, Serialize)]
 pub struct Ping {
     response: String,
