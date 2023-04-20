@@ -1,10 +1,8 @@
 use rocket::*;
-use rocket::serde::{json::Json, Deserialize, Serialize};
-#[derive(Deserialize, Serialize)]
-pub struct Ping {
-    response: String,
-    status: String,
-}
+use rocket::serde::{json::Json};
+
+use super::sort_algs;
+use sort_algs::{ rust_sort, simple_sort, selection_sort, Ping };
 #[get("/sort/<alg>/<data>")]
 pub fn sort(alg: String, data: String) -> Json<Ping>{
   let vec: Vec<&str> = data.split(",").filter(|s| !s.is_empty())

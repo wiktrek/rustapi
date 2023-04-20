@@ -1,9 +1,5 @@
-use rocket::serde::{json::Json, Deserialize, Serialize};
-#[derive(Deserialize, Serialize)]
-pub struct Ping {
-    response: String,
-    status: String,
-}
+use rocket::serde::json::Json;
+use super::Ping;
 fn loc_of_smallest(v: Vec<i32>, mut i: usize, n: usize) -> usize{
 let mut j = i;
 while i<=n {

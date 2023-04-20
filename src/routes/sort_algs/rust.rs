@@ -1,9 +1,5 @@
-use rocket::serde::{json::Json, Deserialize, Serialize};
-#[derive(Deserialize, Serialize)]
-pub struct Ping {
-    response: String,
-    status: String,
-}
+use rocket::serde::json::Json;
+use super::Ping;
 pub fn rust_sort(vec: Vec<i32>) -> Json<Ping>{
   let mut sorted = vec;
     sorted.sort();
