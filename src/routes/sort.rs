@@ -2,7 +2,7 @@ use rocket::*;
 use rocket::serde::{json::Json};
 
 use super::sort_algs;
-use sort_algs::{ rust_sort, simple_sort, selection_sort, Ping };
+use sort_algs::*;
 #[get("/sort/<alg>/<data>")]
 pub fn sort(alg: String, data: String) -> Json<Ping>{
   let vec: Vec<&str> = data.split(",").filter(|s| !s.is_empty())
@@ -18,6 +18,7 @@ match algstr {
   "rust" => rust_sort(vec_i32),
   "simple" => simple_sort(vec_i32),
   "selection" => selection_sort(vec_i32),
+  "bubble" => bubble_sort(vec_i32),
   _ => return Json(Ping { 
     response: format!("Error: couldn't find sorting algorithm {}", algstr),
     status: "400".to_string()})

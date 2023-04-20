@@ -5,6 +5,8 @@ pub mod redirect;
 pub mod mongo;
 mod sort;
 mod sort_algs;
+mod random;
+pub use random::random as random_rs;
 pub use index::index as index_rs;
 pub use json::ping;
 pub use json::test;
