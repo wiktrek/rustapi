@@ -1,7 +1,13 @@
 use rocket::serde::{Deserialize, Serialize};
-pub mod selection;
-pub mod rust;
-pub mod simple;
+mod selection;
+mod rust;
+mod simple;
+mod merge;
+mod bubble;
+mod insertion;
+pub use bubble::bubble_sort;
+pub use insertion::insertion_sort;
+pub use merge::merge_sort;
 pub use rust::rust_sort;
 pub use selection::selection_sort as selection_sort;
 pub use simple::simple_sort;
