@@ -4,4 +4,4 @@
 
 ### / -> index file
 
-### /sort/<alg>/<data example: 1,2,4,5> -> sorting algorithms
+### /sort/<algorithm>/<data example: 1,2,4,5> -> sorting algorithms
