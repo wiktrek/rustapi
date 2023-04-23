@@ -16,6 +16,7 @@ fn rocket() -> _ {
                 wiktrek,
                 json_example,
                 sort_rs,
+                tokio,
                 random_rs
             ],
         )
