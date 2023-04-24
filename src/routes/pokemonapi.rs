@@ -15,4 +15,6 @@ fn get_response() {
         _ => return Ok("WRONG OPTION".to_string()),
     }
 }
-fn height() {}
+fn height() {
+    // get height from api
+}
