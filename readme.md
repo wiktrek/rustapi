@@ -7,3 +7,5 @@
 ### /sort/<algorithm>/<data example: 1,2,4,5> -> sorting algorithms
 
 ### /tokio -> https://tokio.rs/
+
+### /pokemon
