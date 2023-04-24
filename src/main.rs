@@ -17,6 +17,7 @@ fn rocket() -> _ {
                 json_example,
                 sort_rs,
                 tokio,
+                quote,
                 random_rs
             ],
         )
