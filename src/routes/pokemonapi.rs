@@ -1,13 +1,14 @@
 use reqwest::*;
-use rocket::serde::json::to_string;
+// use rocket::serde::json::to_string;
 use std::{io::Error, result::Result};
 #[get("/pokemon/<option>/<pokemon>")]
-pub async fn pokemon(option: String, pokemon: String) -> Result<String, std::io::Error> {
+pub async fn pokemon(option: String, pokemon: String) -> Result<String, Error> {
     let url = format!("https://pokeapi.co/api/v2/pokemon/{}", pokemon);
-    get_response(url, option);
-    Ok("ez".to_string())
+    let response = get_response(url, option).await.unwrap();
+
+    Ok(response)
 }
-async fn get_response(url: String, option: String) -> Result<String, std::io::Error> {
+async fn get_response(url: String, option: String) -> Result<String, Error> {
     let response = get(url).await.unwrap().text().await;
     println!("{:?}", response);
     match option.as_str() {
