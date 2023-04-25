@@ -16,6 +16,7 @@ struct Response {
 }
 #[get("/quote")]
 pub async fn quote() -> Result<String, Error> {
+    // i need to finish this
     let url = format!("https://api.quotable.io/random");
     let response = get(url).await.expect("error");
     // let text: Response = response.json::<Response>().await.unwrap();
