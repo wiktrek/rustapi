@@ -18,7 +18,7 @@ fn rocket() -> _ {
                 sort_rs,
                 tokio,
                 quote,
-                
+                tokio2,
                 random_rs
             ],
         )

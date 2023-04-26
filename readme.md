@@ -8,4 +8,6 @@
 
 ### /tokio -> https://tokio.rs/
 
+### /tokio/second/<time>
+
 ### /pokemon
