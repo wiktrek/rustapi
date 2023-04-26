@@ -18,6 +18,7 @@ fn rocket() -> _ {
                 sort_rs,
                 tokio,
                 quote,
+                user_create,
                 tokio2,
                 random_rs
             ],
