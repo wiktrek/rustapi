@@ -29,9 +29,9 @@ impl MongoRepo {
     pub fn create_user(&self, new_user: User) -> Result<InsertOneResult, Error> {
         let new_doc = User {
             id: None,
-            name: new_user.name,
-            location: new_user.location,
-            title: new_user.title,
+            username: new_user.name,
+            password: new_user.password,
+            messages: new_user.messages,
         };
         let user = self
             .col
@@ -39,5 +39,15 @@ impl MongoRepo {
             .ok()
             .expect("Error creating user");
         Ok(user)
+    }
+    pub fn get_user(&self, id: &String) -> Result<User, Error> {
+        let obj_id = ObjectId::parse_str(id).unwrap();
+        let filter = doc! {"_id": obj_id};
+        let user_detail = self
+            .col
+            .find_one(filter, None)
+            .ok()
+            .expect("Error getting user's detail");
+        Ok(user_detail.unwrap())
     }
 }

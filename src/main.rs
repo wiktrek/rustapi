@@ -1,9 +1,13 @@
 #[macro_use]
 extern crate rocket;
 mod api;
+
 mod models;
 mod repository;
 mod routes;
+use api::*;
+use models::*;
+use repository::*;
 use routes::*;
 #[launch]
 fn rocket() -> _ {
