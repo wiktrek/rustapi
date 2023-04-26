@@ -20,6 +20,7 @@ pub use quoteapi::quote;
 pub use random::random as random_rs;
 pub use redirect::redirect as redirect_rs;
 pub use sort::sort as sort_rs;
+pub use tokio_rs::tokio2;
 pub use tokio_rs::tokio_rs as tokio;
 // pub use mongo::user_create;
 pub use err::internal_error;
