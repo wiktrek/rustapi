@@ -16,11 +16,7 @@ fn rocket() -> _ {
                 wiktrek,
                 json_example,
                 sort_rs,
-                tokio,
                 quote,
-                user_create,
-                tokio2,
-                random_rs
             ],
         )
         .register("/", catchers![internal_error, not_found])
