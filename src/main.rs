@@ -1,12 +1,12 @@
 #[macro_use]
 extern crate rocket;
-mod api;
 
+mod api;
 mod models;
 mod repository;
 mod routes;
 use api::*;
-use models::*;
+// use models::*;
 use repository::*;
 use routes::*;
 #[launch]
@@ -26,6 +26,7 @@ fn rocket() -> _ {
                 create_user,
                 update_user,
                 delete_user,
+                get_all_users
             ],
         )
         .register("/", catchers![internal_error, not_found])

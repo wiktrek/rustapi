@@ -13,7 +13,6 @@ use mongodb::{
 pub struct MongoRepo {
     col: Collection<User>,
 }
-
 impl MongoRepo {
     pub fn init() -> Self {
         dotenv().ok();
