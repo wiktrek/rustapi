@@ -6,7 +6,7 @@ use dotenv::dotenv;
 use crate::models::user_model::User;
 use mongodb::{
     bson::extjson::de::Error,
-    results::{DeleteResult, InsertOneResult},
+    results::{DeleteResult, InsertOneResult, UpdateResult},
     sync::{Client, Collection},
 };
 
@@ -50,6 +50,25 @@ impl MongoRepo {
             .ok()
             .expect("Error getting user's detail");
         Ok(user_detail.unwrap())
+    }
+    pub fn update_user(&self, id: &String, new_user: User) -> Result<UpdateResult, Error> {
+        let obj_id = ObjectId::parse_str(id).unwrap();
+        let filter = doc! {"_id": obj_id};
+        let new_doc = doc! {
+            "$set":
+                {
+                    "id": new_user.id,
+                    "username": new_user.username,
+                    "password": new_user.password,
+                    "messages": bson::to_bson(&new_user.messages).unwrap(),
+                },
+        };
+        let updated_doc = self
+            .col
+            .update_one(filter, new_doc, None)
+            .ok()
+            .expect("Error updating user");
+        Ok(updated_doc)
     }
     pub fn delete_user(&self, id: &String) -> Result<DeleteResult, Error> {
         let obj_id = ObjectId::parse_str(id).unwrap();
