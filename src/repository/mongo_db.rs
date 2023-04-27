@@ -1,5 +1,6 @@
 use std::env;
 extern crate dotenv;
+use bson::{doc, oid::ObjectId};
 use dotenv::dotenv;
 
 use crate::models::user_model::User;
@@ -29,7 +30,7 @@ impl MongoRepo {
     pub fn create_user(&self, new_user: User) -> Result<InsertOneResult, Error> {
         let new_doc = User {
             id: None,
-            username: new_user.name,
+            username: new_user.username,
             password: new_user.password,
             messages: new_user.messages,
         };
