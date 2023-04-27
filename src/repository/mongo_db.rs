@@ -70,6 +70,15 @@ impl MongoRepo {
             .expect("Error updating user");
         Ok(updated_doc)
     }
+    pub fn get_all_users(&self) -> Result<Vec<User>, Error> {
+        let cursors = self
+            .col
+            .find(None, None)
+            .ok()
+            .expect("Error getting list of users");
+        let users = cursors.map(|doc| doc.unwrap()).collect();
+        Ok(users)
+    }
     pub fn delete_user(&self, id: &String) -> Result<DeleteResult, Error> {
         let obj_id = ObjectId::parse_str(id).unwrap();
         let filter = doc! {"_id": obj_id};

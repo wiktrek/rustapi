@@ -8,7 +8,17 @@ pub fn create_user(
     db: &State<MongoRepo>,
     new_user: Json<User>,
 ) -> Result<Json<InsertOneResult>, Status> {
-    //create_user code goes here
+    let data = User {
+        id: None,
+        username: new_user.username.to_owned(),
+        password: new_user.password.to_owned(),
+        messages: new_user.messages.to_vec(),
+    };
+    let user_detail = db.create_user(data);
+    match user_detail {
+        Ok(user) => Ok(Json(user)),
+        Err(_) => Err(Status::InternalServerError),
+    }
 }
 
 #[get("/user/<path>")]
@@ -37,7 +47,7 @@ pub fn update_user(
         id: Some(ObjectId::parse_str(&id).unwrap()),
         username: new_user.username.to_owned(),
         password: new_user.password.to_owned(),
-        messages: new_user.messages,
+        messages: new_user.messages.clone(),
     };
     let update_result = db.update_user(&id, data);
     match update_result {
@@ -70,6 +80,14 @@ pub fn delete_user(db: &State<MongoRepo>, path: String) -> Result<Json<&str>, St
                 return Err(Status::NotFound);
             }
         }
+        Err(_) => Err(Status::InternalServerError),
+    }
+}
+#[get("/users")]
+pub fn get_all_users(db: &State<MongoRepo>) -> Result<Json<Vec<User>>, Status> {
+    let users = db.get_all_users();
+    match users {
+        Ok(users) => Ok(Json(users)),
         Err(_) => Err(Status::InternalServerError),
     }
 }

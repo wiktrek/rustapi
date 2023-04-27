@@ -9,7 +9,7 @@ pub struct User {
     pub password: String,
     pub messages: Vec<Message>,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Message {
     pub id: String,
     pub text: String,

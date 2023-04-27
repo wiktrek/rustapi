@@ -25,6 +25,7 @@ fn rocket() -> _ {
                 get_user,
                 create_user,
                 update_user,
+                delete_user,
             ],
         )
         .register("/", catchers![internal_error, not_found])
