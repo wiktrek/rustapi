@@ -22,7 +22,7 @@ impl MongoRepo {
         };
         let client = Client::with_uri_str(uri).unwrap();
         let db = client.database("rust");
-        let col: Collection<User> = db.collection("User");
+        let col: Collection<User> = db.collection("users");
         MongoRepo { col }
     }
 
