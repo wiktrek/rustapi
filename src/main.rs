@@ -9,8 +9,10 @@ use api::*;
 // use models::*;
 use repository::*;
 use routes::*;
+
 #[launch]
 fn rocket() -> _ {
+    loadfiles();
     let db = mongo_db::MongoRepo::init();
     rocket::build()
         .manage(db)
