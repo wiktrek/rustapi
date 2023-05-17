@@ -1,15 +1,3 @@
-use glob::glob;
-pub fn loadfiles() {
-    for entry in glob("./src/routes/**/*.rs").expect("Failed to read glob pattern") {
-        match entry {
-            Ok(path) => {
-                println!("{:?}", path.file_name());
-                println!("{:?}", path.display())
-            }
-            Err(e) => println!("{:?}", e),
-        }
-    }
-}
 mod err;
 mod index;
 mod pokemonapi;
