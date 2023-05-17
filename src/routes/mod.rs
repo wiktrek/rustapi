@@ -1,9 +1,11 @@
+use glob::glob;
 pub fn loadfiles() {
-    use glob::glob;
-
-    for entry in glob("/**/*.rs").expect("Failed to read glob pattern") {
+    for entry in glob("./src/routes/**/*.rs").expect("Failed to read glob pattern") {
         match entry {
-            Ok(path) => println!("{:?}", path.display()),
+            Ok(path) => {
+                println!("{:?}", path.file_name());
+                println!("{:?}", path.display())
+            }
             Err(e) => println!("{:?}", e),
         }
     }
