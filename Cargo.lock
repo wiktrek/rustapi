@@ -1670,7 +1670,6 @@ dependencies = [
  "bson",
  "chrono",
  "dotenv",
- "glob",
  "mongodb",
  "rand",
  "reqwest",
