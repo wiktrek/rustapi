@@ -117,22 +117,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
 
 [[package]]
-name = "backend"
-version = "0.1.0"
-dependencies = [
- "bson",
- "chrono",
- "dotenv",
- "mongodb",
- "rand",
- "reqwest",
- "rocket",
- "serde",
- "serde_json",
- "tokio",
-]
-
-[[package]]
 name = "base64"
 version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -578,10 +562,6 @@ checksum = "a9c384f161156f5260c24a097c56119f9be8c798586aecc13afbcbe7b7e26bf8"
 dependencies = [
  "percent-encoding",
 ]
-
-[[package]]
-name = "frontend"
-version = "0.1.0"
 
 [[package]]
 name = "futures"
@@ -1681,6 +1661,22 @@ dependencies = [
  "time 0.3.20",
  "tokio",
  "uncased",
+]
+
+[[package]]
+name = "rust"
+version = "0.1.0"
+dependencies = [
+ "bson",
+ "chrono",
+ "dotenv",
+ "mongodb",
+ "rand",
+ "reqwest",
+ "rocket",
+ "serde",
+ "serde_json",
+ "tokio",
 ]
 
 [[package]]
