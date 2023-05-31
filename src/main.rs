@@ -10,6 +10,6 @@ use routes::*;
 #[launch]
 fn rocket() -> _ {
     rocket::build()
-        .mount("/", routes![index_rs, wiktrek, test])
+        .mount("/", routes![index_rs, wiktrek, test, mylinks])
         .register("/", catchers![internal_error, not_found])
 }

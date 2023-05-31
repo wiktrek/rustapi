@@ -16,7 +16,7 @@ pub fn wiktrek() -> Json<Response> {
 #[get("/api/test")]
 pub fn test() -> Json<Response> {
     let response = Response {
-        response: "api works!z".to_string(),
+        response: "api works!".to_string(),
         status: "200".to_string(),
     };
     return Json(response);
