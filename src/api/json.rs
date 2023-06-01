@@ -11,7 +11,7 @@ pub fn wiktrek() -> Json<Response> {
         response: "wiktrek".to_string(),
         status: "200".to_string(),
     };
-    return Json(response);
+    Json(response)
 }
 #[get("/api/test")]
 pub fn test() -> Json<Response> {
@@ -19,5 +19,5 @@ pub fn test() -> Json<Response> {
         response: "api works!".to_string(),
         status: "200".to_string(),
     };
-    return Json(response);
+    Json(response)
 }
