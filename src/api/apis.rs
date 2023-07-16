@@ -4,7 +4,7 @@ use std::io;
 #[derive(Deserialize, Serialize)]
 pub struct Response {
     response: String,
-    status: String,
+    status: i32,
 }
 #[derive(Deserialize, Serialize)]
 struct PokeApi {
@@ -34,7 +34,7 @@ pub async fn pokemon_name(name: &str) -> io::Result<Json<Response>> {
         .expect(format!("Error: Couldn't find pokemon: {}", name).as_str());
     let api_response = Response {
         response: serde_json::to_string(&data).unwrap(),
-        status: "200".to_string(),
+        status: 200,
     };
     Ok(Json(api_response))
 }
@@ -52,7 +52,7 @@ pub async fn chucknorris() -> Json<Response> {
     let data = response.json::<ChuckNorris>().await.unwrap();
     let api_response = Response {
         response: data.value,
-        status: "200".to_string(),
+        status: 200,
     };
     Json(api_response)
 }
