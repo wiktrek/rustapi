@@ -12,7 +12,15 @@ fn rocket() -> _ {
     rocket::build()
         .mount(
             "/",
-            routes![index, wiktrek, test, pokemon_name, chucknorris, hello],
+            routes![
+                index,
+                wiktrek,
+                test,
+                pokemon_name,
+                chucknorris,
+                hello,
+                redirect_to
+            ],
         )
         .register("/", catchers![internal_error, not_found])
 }
