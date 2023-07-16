@@ -1,4 +1,4 @@
+mod apis;
 mod json;
-mod pokemon;
-pub use json::{test, wiktrek};
-pub use pokemon::pokemon_name;
+pub use apis::*;
+pub use json::*;
