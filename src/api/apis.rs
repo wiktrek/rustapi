@@ -17,9 +17,10 @@ struct PokeApi {
 struct ChuckNorris {
     value: String,
 }
+
+// https://pokeapi.co/api/v2/pokemon/pokemonname
 #[get("/api/pokemon/<name>")]
 pub async fn pokemon_name(name: &str) -> io::Result<Json<Response>> {
-    // https://pokeapi.co/api/v2/pokemon/pokemonname
     println!("{}", name);
     let client = reqwest::Client::new();
     let response = client
@@ -38,9 +39,10 @@ pub async fn pokemon_name(name: &str) -> io::Result<Json<Response>> {
     };
     Ok(Json(api_response))
 }
+
+// https://api.chucknorris.io/jokes/random
 #[get("/api/chucknorris")]
 pub async fn chucknorris() -> Json<Response> {
-    // https://api.chucknorris.io/jokes/random
     let client = reqwest::Client::new();
     let response = client
         .get(format!("https://api.chucknorris.io/jokes/random"))
