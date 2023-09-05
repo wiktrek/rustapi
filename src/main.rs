@@ -21,6 +21,7 @@ fn rocket() -> _ {
                 chucknorris,
                 hello,
                 redirect_to,
+                countries,
                 hot_take,
             ],
         )
