@@ -5,18 +5,18 @@ pub struct Response {
     response: String,
     status: i32,
 }
-#[get("/api/wiktrek")]
-pub fn wiktrek() -> Json<Response> {
-    let response = Response {
-        response: "wiktrek".to_string(),
-        status: 200,
-    };
-    Json(response)
-}
 #[get("/api/test")]
 pub fn test() -> Json<Response> {
     let response = Response {
         response: "api works!".to_string(),
+        status: 200,
+    };
+    Json(response)
+}
+#[get("/ping")]
+pub fn ping() -> Json<Response> {
+    let response = Response {
+        response: "pong!".to_string(),
         status: 200,
     };
     Json(response)

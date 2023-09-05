@@ -15,7 +15,7 @@ fn rocket() -> _ {
             routes![
                 index,
                 htmx,
-                wiktrek,
+                ping,
                 test,
                 pokemon_name,
                 chucknorris,
