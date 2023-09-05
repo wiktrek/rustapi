@@ -20,7 +20,8 @@ fn rocket() -> _ {
                 pokemon_name,
                 chucknorris,
                 hello,
-                redirect_to
+                redirect_to,
+                hot_take,
             ],
         )
         .register("/", catchers![internal_error, not_found])
